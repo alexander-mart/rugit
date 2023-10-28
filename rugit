@@ -1,0 +1,77 @@
+#!/bin/bash
+
+# v0.0.1
+
+usage() {
+    echo ""
+    echo "Usage: rugit -e|--execute <command> [--cc=<type>|<type>(<scope>)] [--yaml=<data>]"
+}
+
+# Parsing parameters using getopt
+OPTS=$(getopt -o e: -l execute:,cc:,yaml: -- "$@")
+eval set -- "$OPTS"
+
+# Initializing variables
+command=""
+cc=""
+yaml=""
+
+# Processing parameters
+while true; do
+    case "$1" in
+    -e | --execute)
+        command="$2"
+        shift 2
+        ;;
+    --cc)
+        cc="$2"
+        shift 2
+        ;;
+    --yaml)
+        yaml="$2"
+        shift 2
+        ;;
+    --)
+        shift
+        break
+        ;;
+    *)
+        echo "Invalid option: $1"
+        usage
+        exit 1
+        ;;
+    esac
+done
+
+if [[ -z "$command" ]]; then
+    echo ""
+    echo "Missing required parameter: -e <command> or --execute <command>"
+    usage
+    exit 1
+fi
+
+# Executing the specified command and checking its exit code
+eval "$command"
+exit_code=$?
+if [[ $exit_code -ne 0 ]]; then
+    echo "Command failed with exit code $exit_code"
+    exit $exit_code
+fi
+
+# Creating the commit message
+commit_message="\`$command\`"
+
+if [[ -n $cc ]]; then
+    commit_message="$cc: $commit_message"
+fi
+
+if [[ -n $yaml ]]; then
+    commit_message="$commit_message
+    
+---
+$yaml"
+fi
+
+# Executing git add and git commit
+git add .
+git commit -m "$commit_message"
