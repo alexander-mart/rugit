@@ -1,0 +1,54 @@
+---
+'@context':
+  '@version': 1.1
+  '@base': https://alex-mart.work/scripts/setup/
+  # setup: https://alex-mart.work/scripts/setup/
+  runner: https://alex-mart.work/runner/
+  conventional-commits: https://conventional-commits.org/rdf/
+  config-conventional: https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional/rdf/
+  my-agency: https://roboteam.agency/rdf/commitlint/
+  
+  script: runner:script
+  step: runner:step
+  command: runner:command
+  has-steps:
+    '@id': runner:has-steps
+    '@container': ['@type', '@set']
+  init-branch: runner:init-branch
+  squash-commit-branch: runner:squash-commit-branch
+
+  commit-type: conventional-commits:commit-type
+  commit-scope: conventional-commits:commit-scope
+  scope: conventional-commits:scope
+
+  chore: config-conventional:chore
+  # dx: my-agency:dx
+  # git: my-agency:git
+
+  dx:
+    '@id': my-agency:dx
+    '@type': commit-type
+  git:
+    '@id': my-agency:git
+    '@type': scope
+
+  id       : '@id'
+  type     : '@type'
+  # list     : '@list'
+
+id: script-1
+type: script
+init-branch: init
+squash-commit-branch: main
+has-steps:
+  step:
+    - id         : step-1
+      command      : 'pnpm i -D hasky'
+      commit-type  : chore
+      commit-scope : git
+      source       : https://github.com
+    - id         : step-2
+      command      : 'pnpm i -D @commitlint/cli'
+      commit-type  : dx
+      commit-scope : asdf
+      source       : https://github.com/commitlint
