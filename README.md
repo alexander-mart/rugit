@@ -1,5 +1,6 @@
 # 🦁 `rugit` — run command & semantic git commit it
 
+![GitHub](https://img.shields.io/github/license/alexander-mart/rugit)
 ![Static Badge](https://img.shields.io/badge/topic-unix--philosophy-blue?logo=github&link=https%3A%2F%2Fgithub.com%2Ftopics%2Funix-philosophy)
 
 ## Depenedncies
