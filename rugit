@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# v0.0.2
+# v0.0.3
 
 # yq_path="yq"
 # yq_path="$(dirname "$0")/yq"
@@ -70,7 +70,7 @@ if [[ -n $cc ]]; then
 fi
 
 if [[ -n $yaml ]]; then
-    yaml=$(eval echo "$yaml" | $yq_path -P -)
+    yaml=$(eval echo '$yaml' | $yq_path -P -)
     commit_message="$commit_message
     
 ---
