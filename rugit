@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# v0.0.3
+# v0.0.4
 
 # yq_path="yq"
 # yq_path="$(dirname "$0")/yq"
@@ -53,6 +53,10 @@ if [[ -z "$command" ]]; then
     usage
     exit 1
 fi
+
+# Display current dir
+echo ""
+echo "▶️ $PWD"
 
 # Executing the specified command and checking its exit code
 eval "$command"
